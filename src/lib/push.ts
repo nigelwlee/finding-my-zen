@@ -1,15 +1,28 @@
 import webpush from "web-push";
 
-webpush.setVapidDetails(
-  "mailto:notifications@findingmyzen.app",
-  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
-  process.env.VAPID_PRIVATE_KEY!
-);
+let initialized = false;
+
+function ensureInitialized() {
+  if (initialized) return;
+  const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+  const privateKey = process.env.VAPID_PRIVATE_KEY;
+  if (!publicKey || !privateKey) {
+    throw new Error("VAPID keys not configured");
+  }
+  webpush.setVapidDetails(
+    "mailto:notifications@findingmyzen.app",
+    publicKey,
+    privateKey
+  );
+  initialized = true;
+}
 
 export async function sendPushNotification(
   subscription: webpush.PushSubscription,
   payload: { title: string; body: string; url?: string }
 ) {
+  ensureInitialized();
+
   try {
     await webpush.sendNotification(subscription, JSON.stringify(payload));
     return { success: true };
@@ -19,7 +32,6 @@ export async function sendPushNotification(
         ? (error as { statusCode: number }).statusCode
         : undefined;
 
-    // 410 Gone means the subscription is no longer valid
     if (statusCode === 410) {
       return { success: false, expired: true };
     }

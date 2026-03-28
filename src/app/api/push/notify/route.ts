@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { sendPushNotification } from "@/lib/push";
+
+export const dynamic = "force-dynamic";
 
 // Use service-level client for cron job (no user session)
 function createAdminClient() {
@@ -48,6 +49,7 @@ export async function POST(request: Request) {
   for (const profile of profiles) {
     if (flippedUserIds.has(profile.id)) continue;
 
+    const { sendPushNotification } = await import("@/lib/push");
     const result = await sendPushNotification(profile.push_subscription, {
       title: "Finding My Zen",
       body: "Your daily reflection awaits.",

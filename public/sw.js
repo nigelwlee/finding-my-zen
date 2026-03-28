@@ -1,5 +1,5 @@
-const CACHE_NAME = "finding-my-zen-v1";
-const STATIC_ASSETS = ["/", "/offline"];
+const CACHE_NAME = "finding-my-zen-v2";
+const STATIC_ASSETS = ["/"];
 
 // Install: cache static assets
 self.addEventListener("install", (event) => {

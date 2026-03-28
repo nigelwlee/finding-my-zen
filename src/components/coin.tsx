@@ -193,15 +193,16 @@ export function Coin({ isAuthenticated = false }: CoinProps) {
           <p className="text-center text-[12px] text-text-tertiary">
             Return tomorrow for a new reflection
           </p>
-          {!isAuthenticated && (
-            <Link
-              href="/auth/login"
-              className="text-[14px] text-text-tertiary transition-colors duration-200 hover:text-text"
-            >
-              Sign in to save your reflections
-            </Link>
-          )}
         </div>
+      )}
+
+      {!isAuthenticated && (
+        <Link
+          href="/auth/login"
+          className="text-[14px] text-text-tertiary transition-colors duration-200 hover:text-text"
+        >
+          Sign in to save your reflections
+        </Link>
       )}
 
       <div aria-live="polite" className="sr-only">

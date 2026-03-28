@@ -11,6 +11,8 @@ interface CoinProps {
   isAuthenticated?: boolean;
 }
 
+const isUnlimited = process.env.NEXT_PUBLIC_FLIP_MODE === "unlimited";
+
 export function Coin({ isAuthenticated = false }: CoinProps) {
   const { quote, hasFlippedToday, flip, isFlipping } = useFlip();
   const [showQuote, setShowQuote] = useState(hasFlippedToday);
@@ -188,7 +190,7 @@ export function Coin({ isAuthenticated = false }: CoinProps) {
         ) : null}
       </AnimatePresence>
 
-      {hasFlippedToday && showQuote && (
+      {hasFlippedToday && showQuote && !isUnlimited && (
         <div className="flex flex-col items-center gap-[16px]">
           <p className="text-center text-[12px] text-text-tertiary">
             Return tomorrow for a new reflection

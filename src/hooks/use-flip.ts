@@ -14,6 +14,7 @@ interface FlipState {
 }
 
 const STORAGE_KEY = "finding-my-zen-flip";
+const isUnlimited = process.env.NEXT_PUBLIC_FLIP_MODE === "unlimited";
 
 function getTodayDateString(): string {
   return new Date().toISOString().split("T")[0];
@@ -40,6 +41,7 @@ export function useFlip() {
   const [isFlipping, setIsFlipping] = useState(false);
 
   useEffect(() => {
+    if (isUnlimited) return;
     const stored = getStoredFlip();
     if (stored && stored.lastFlipDate === getTodayDateString()) {
       setQuote(stored.quote);
@@ -48,7 +50,7 @@ export function useFlip() {
   }, []);
 
   const flip = useCallback(async () => {
-    if (hasFlippedToday || isFlipping) return;
+    if ((!isUnlimited && hasFlippedToday) || isFlipping) return;
 
     setIsFlipping(true);
 
@@ -58,8 +60,10 @@ export function useFlip() {
 
       const data: Quote = await res.json();
       setQuote(data);
-      setHasFlippedToday(true);
-      storeFlip({ lastFlipDate: getTodayDateString(), quote: data });
+      if (!isUnlimited) {
+        setHasFlippedToday(true);
+        storeFlip({ lastFlipDate: getTodayDateString(), quote: data });
+      }
     } catch {
       // Fallback: pick from local quotes if API fails
       const fallback = {
@@ -68,8 +72,10 @@ export function useFlip() {
         author: "Marcus Aurelius",
       };
       setQuote(fallback);
-      setHasFlippedToday(true);
-      storeFlip({ lastFlipDate: getTodayDateString(), quote: fallback });
+      if (!isUnlimited) {
+        setHasFlippedToday(true);
+        storeFlip({ lastFlipDate: getTodayDateString(), quote: fallback });
+      }
     } finally {
       setIsFlipping(false);
     }

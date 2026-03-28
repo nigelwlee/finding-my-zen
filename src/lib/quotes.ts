@@ -49,7 +49,8 @@ export async function selectQuoteForUser(
   const today = new Date().toISOString().split("T")[0];
   const { data } = await supabase.rpc("quote_for_date", { target_date: today });
 
-  if (data) return data;
+  if (data && Array.isArray(data) && data.length > 0) return data[0];
+  if (data && !Array.isArray(data)) return data;
 
   // Fallback
   const { data: fallback } = await supabase

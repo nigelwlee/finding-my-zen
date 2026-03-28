@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "A daily moment of calm. Flip a coin, receive a stoic reflection.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f7f7f7",
-    theme_color: "#f7f7f7",
+    background_color: "#0a0a0a",
+    theme_color: "#0a0a0a",
     icons: [
       {
         src: "/icons/icon-192.svg",

@@ -73,7 +73,7 @@ export default function SignupPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded-[8px] border border-border bg-white px-[16px] py-[12px] text-[16px] text-text placeholder:text-text-tertiary outline-none transition-colors focus:border-accent"
+            className="w-full rounded-[8px] border border-border bg-bg-subtle px-[16px] py-[12px] text-[16px] text-text placeholder:text-text-tertiary outline-none transition-colors focus:border-accent"
           />
           <input
             type="password"
@@ -82,7 +82,7 @@ export default function SignupPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={6}
-            className="w-full rounded-[8px] border border-border bg-white px-[16px] py-[12px] text-[16px] text-text placeholder:text-text-tertiary outline-none transition-colors focus:border-accent"
+            className="w-full rounded-[8px] border border-border bg-bg-subtle px-[16px] py-[12px] text-[16px] text-text placeholder:text-text-tertiary outline-none transition-colors focus:border-accent"
           />
 
           {error && (

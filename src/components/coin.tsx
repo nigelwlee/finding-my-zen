@@ -2,11 +2,16 @@
 
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { QuoteDisplay } from "./quote-display";
 import { useFlip } from "@/hooks/use-flip";
 import styles from "./coin.module.css";
 
-export function Coin() {
+interface CoinProps {
+  isAuthenticated?: boolean;
+}
+
+export function Coin({ isAuthenticated = false }: CoinProps) {
   const { quote, hasFlippedToday, flip, isFlipping } = useFlip();
   const [showQuote, setShowQuote] = useState(hasFlippedToday);
 
@@ -31,35 +36,139 @@ export function Coin() {
         >
           <div className={styles.front}>
             <svg
-              viewBox="0 0 100 100"
-              className="h-[64px] w-[64px] md:h-[80px] md:w-[80px]"
+              viewBox="0 0 200 200"
+              className="h-full w-full"
               aria-hidden="true"
             >
-              <circle
-                cx="50"
-                cy="50"
-                r="40"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeDasharray="220 30"
-                opacity="0.7"
-              />
+              {/* Outer rim */}
+              <circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" strokeWidth="2" opacity="0.4" />
+              <circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+
+              {/* Bead border */}
+              {Array.from({ length: 48 }).map((_, i) => {
+                const angle = (i * 360) / 48;
+                const rad = (angle * Math.PI) / 180;
+                const x = 100 + 86 * Math.cos(rad);
+                const y = 100 + 86 * Math.sin(rad);
+                return (
+                  <circle key={i} cx={x} cy={y} r="1.2" fill="currentColor" opacity="0.35" />
+                );
+              })}
+
+              {/* Inner decorative ring */}
+              <circle cx="100" cy="100" r="78" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.25" />
+
+              {/* Text arc — FINDING MY ZEN */}
+              <defs>
+                <path id="topArc" d="M 30,100 a 70,70 0 0,1 140,0" fill="none" />
+                <path id="bottomArc" d="M 170,100 a 70,70 0 0,1 -140,0" fill="none" />
+              </defs>
+              <text fill="currentColor" fontSize="8" fontWeight="400" letterSpacing="4" opacity="0.5">
+                <textPath href="#topArc" startOffset="50%" textAnchor="middle">
+                  FINDING MY ZEN
+                </textPath>
+              </text>
+
+              {/* Star separators */}
+              <circle cx="32" cy="88" r="1.5" fill="currentColor" opacity="0.4" />
+              <circle cx="168" cy="88" r="1.5" fill="currentColor" opacity="0.4" />
+
+              {/* Center lotus motif */}
+              <g transform="translate(100, 100)" opacity="0.6">
+                {/* Lotus petals */}
+                {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
+                  <ellipse
+                    key={angle}
+                    cx="0"
+                    cy="-22"
+                    rx="6"
+                    ry="16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1"
+                    transform={`rotate(${angle})`}
+                  />
+                ))}
+                {/* Inner petals */}
+                {[22.5, 67.5, 112.5, 157.5, 202.5, 247.5, 292.5, 337.5].map((angle) => (
+                  <ellipse
+                    key={angle}
+                    cx="0"
+                    cy="-14"
+                    rx="4"
+                    ry="10"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="0.8"
+                    opacity="0.5"
+                    transform={`rotate(${angle})`}
+                  />
+                ))}
+                {/* Center circle */}
+                <circle cx="0" cy="0" r="5" fill="none" stroke="currentColor" strokeWidth="1" />
+                <circle cx="0" cy="0" r="2" fill="currentColor" opacity="0.4" />
+              </g>
             </svg>
           </div>
           <div className={styles.back}>
             <svg
-              viewBox="0 0 24 24"
-              className="h-[32px] w-[32px] md:h-[40px] md:w-[40px]"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
+              viewBox="0 0 200 200"
+              className="h-full w-full"
               aria-hidden="true"
             >
-              <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9" />
-              <path d="M12 3c2.21 0 4 4.03 4 9s-1.79 9-4 9-4-4.03-4-9 1.79-9 4-9" />
-              <path d="M3.5 9h17M3.5 15h17" />
+              {/* Outer rim */}
+              <circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" strokeWidth="2" opacity="0.4" />
+              <circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+
+              {/* Bead border */}
+              {Array.from({ length: 48 }).map((_, i) => {
+                const angle = (i * 360) / 48;
+                const rad = (angle * Math.PI) / 180;
+                const x = 100 + 86 * Math.cos(rad);
+                const y = 100 + 86 * Math.sin(rad);
+                return (
+                  <circle key={i} cx={x} cy={y} r="1.2" fill="currentColor" opacity="0.35" />
+                );
+              })}
+
+              {/* Inner decorative ring */}
+              <circle cx="100" cy="100" r="78" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.25" />
+
+              {/* Text arc — DAILY REFLECTION */}
+              <defs>
+                <path id="backBottomArc" d="M 170,100 a 70,70 0 0,1 -140,0" fill="none" />
+              </defs>
+              <text fill="currentColor" fontSize="7" fontWeight="400" letterSpacing="3" opacity="0.5">
+                <textPath href="#backBottomArc" startOffset="50%" textAnchor="middle">
+                  DAILY REFLECTION
+                </textPath>
+              </text>
+
+              {/* Star separators */}
+              <circle cx="32" cy="112" r="1.5" fill="currentColor" opacity="0.4" />
+              <circle cx="168" cy="112" r="1.5" fill="currentColor" opacity="0.4" />
+
+              {/* Center mountain/wave motif */}
+              <g transform="translate(100, 95)" opacity="0.6">
+                {/* Mountain */}
+                <path
+                  d="M -30,15 L -5,-25 L 5,-15 L 20,-30 L 35,15 Z"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.2"
+                  strokeLinejoin="round"
+                />
+                {/* Wave below */}
+                <path
+                  d="M -35,20 Q -25,14 -15,20 Q -5,26 5,20 Q 15,14 25,20 Q 35,26 40,20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                />
+                {/* Sun/moon */}
+                <circle cx="-18" cy="-18" r="8" fill="none" stroke="currentColor" strokeWidth="0.8" />
+              </g>
             </svg>
           </div>
         </button>
@@ -80,9 +189,19 @@ export function Coin() {
       </AnimatePresence>
 
       {hasFlippedToday && showQuote && (
-        <p className="text-center text-[12px] text-text-tertiary">
-          Return tomorrow for a new reflection
-        </p>
+        <div className="flex flex-col items-center gap-[16px]">
+          <p className="text-center text-[12px] text-text-tertiary">
+            Return tomorrow for a new reflection
+          </p>
+          {!isAuthenticated && (
+            <Link
+              href="/auth/login"
+              className="text-[14px] text-text-tertiary transition-colors duration-200 hover:text-text"
+            >
+              Sign in to save your reflections
+            </Link>
+          )}
+        </div>
       )}
 
       <div aria-live="polite" className="sr-only">

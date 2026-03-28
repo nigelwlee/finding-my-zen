@@ -56,7 +56,7 @@ export function NotificationPrompt() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="fixed bottom-[24px] left-1/2 z-50 w-[calc(100%-48px)] max-w-[360px] -translate-x-1/2 rounded-[8px] border border-border bg-white p-[24px] shadow-sm"
+          className="fixed bottom-[24px] left-1/2 z-50 w-[calc(100%-48px)] max-w-[360px] -translate-x-1/2 rounded-[8px] border border-border bg-bg-subtle p-[24px] shadow-sm"
         >
           {subscribed ? (
             <p className="text-center text-[14px] text-text-secondary">

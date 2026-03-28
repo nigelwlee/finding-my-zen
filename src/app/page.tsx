@@ -13,7 +13,7 @@ export default async function Home() {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex flex-1 flex-col items-center justify-center px-[16px]">
-        <Coin />
+        <Coin isAuthenticated={!!user} />
       </main>
       {user && <NotificationPrompt />}
     </div>

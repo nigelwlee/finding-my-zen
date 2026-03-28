@@ -15,7 +15,7 @@ export async function Header() {
       >
         Finding My Zen
       </Link>
-      {user ? (
+      {user && (
         <div className="flex items-center gap-[16px]">
           <Link
             href="/journal"
@@ -25,13 +25,6 @@ export async function Header() {
           </Link>
           <SignOutButton />
         </div>
-      ) : (
-        <Link
-          href="/auth/login"
-          className="text-[14px] text-text-tertiary transition-colors duration-200 hover:text-text"
-        >
-          Sign in
-        </Link>
       )}
     </header>
   );

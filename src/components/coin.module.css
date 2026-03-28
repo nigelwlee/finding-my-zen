@@ -1,0 +1,138 @@
+.coinWrapper {
+  perspective: 1000px;
+}
+
+.coin {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  outline: none;
+  animation: float 3s ease-in-out infinite;
+  transition: transform 0.1s ease;
+}
+
+@media (min-width: 768px) {
+  .coin {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.coin:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.coin:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 8px;
+  border-radius: 50%;
+}
+
+.coin:disabled {
+  cursor: default;
+  animation: none;
+}
+
+.front,
+.back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.front {
+  background: linear-gradient(
+    145deg,
+    var(--color-coin) 0%,
+    var(--color-coin-edge) 100%
+  );
+  color: var(--color-white);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.back {
+  background: linear-gradient(
+    145deg,
+    var(--color-coin-edge) 0%,
+    var(--color-coin) 100%
+  );
+  color: var(--color-white);
+  transform: rotateY(180deg);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Idle floating animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Flip animation */
+.flipping {
+  animation: coinFlip 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes coinFlip {
+  0% {
+    transform: translateY(0) rotateY(0deg);
+  }
+  30% {
+    transform: translateY(-80px) rotateY(360deg);
+  }
+  60% {
+    transform: translateY(-40px) rotateY(720deg);
+  }
+  100% {
+    transform: translateY(0) rotateY(1080deg);
+  }
+}
+
+/* Already flipped — show back face */
+.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Reduced motion fallback */
+@media (prefers-reduced-motion: reduce) {
+  .coin {
+    animation: none;
+  }
+
+  .flipping {
+    animation: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .flipping .front {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .flipping .back {
+    opacity: 1;
+    transition: opacity 0.4s ease;
+  }
+
+  .flipped {
+    transform: rotateY(180deg);
+  }
+}

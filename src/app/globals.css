@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  /* Cool monochrome palette */
+  --color-bg: #f7f7f7;
+  --color-bg-subtle: #efefef;
+  --color-border: #e0e0e0;
+  --color-text: #1a1a1a;
+  --color-text-secondary: #6b6b6b;
+  --color-text-tertiary: #999999;
+  --color-accent: #4a4a4a;
+  --color-accent-hover: #333333;
+  --color-coin: #b8b8b8;
+  --color-coin-edge: #8a8a8a;
+  --color-white: #ffffff;
+
+  /* 8px grid spacing */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 16px;
+  --spacing-4: 24px;
+  --spacing-5: 32px;
+  --spacing-6: 48px;
+  --spacing-7: 64px;
+  --spacing-8: 80px;
+  --spacing-9: 96px;
+  --spacing-10: 128px;
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-size-caption: 12px;
+  --font-size-small: 14px;
+  --font-size-body: 16px;
+  --font-size-h3: 18px;
+  --font-size-h2: 24px;
+  --font-size-h1: 32px;
+  --font-size-display: 48px;
+}
+
+html,
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+}

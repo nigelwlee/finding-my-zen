@@ -35,6 +35,17 @@ npm run lint     # Run ESLint
 
 Cool monochrome palette. 8px grid spacing. Inter font. See `.claude/skills/design-guide/SKILL.md` for full design guidelines.
 
+## Workflow
+
+All changes must follow this workflow:
+
+1. **Linear first** — Create an issue in the "Finding My Zen" project (team: Nigel Hobby, key: NIG) before writing any code
+2. **Commit with issue reference** — Include the Linear issue ID (e.g., `NIG-21`) in the commit message so it auto-links
+3. **Update Linear** — Mark the issue as Done after code is committed and pushed
+4. **Deploy** — Push to main triggers Vercel deployment
+
+Never skip Linear. Even small fixes get an issue.
+
 ## Key Patterns
 
 - Anonymous users: localStorage for flip state
